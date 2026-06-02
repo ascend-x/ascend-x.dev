@@ -87,10 +87,14 @@
 
 	// File System Mock
 	const fileSystem = {
-		'projects': 'QAVACH Identity Platform\nDarkLead CTF Infra\nICS Security Dashboard',
-		'skills': 'Offensive Security (Web, Net, BinExp)\nCloud Infrastructure (AWS/GCP/K8s)\nCryptography (PQC)\nDevSecOps',
 		'resume.txt': 'Accessing top secret clearance...\n\nNandakishore V\nRoles: Penetration Tester, Cloud Security Engineer\nCTFs Played: 120+\nHackathons Won: 15+\n\nStatus: OPEN TO OPPORTUNITIES',
-		'contact.txt': 'Email: nk.ascendx@gmail.com\nGitHub: github.com/ascend-x\nTryHackMe: tryhackme.com/p/ascendx001\nLinkedIn: linkedin.com/in/ascend-x'
+		'contact.txt': 'Email: nk.ascendx@gmail.com\nGitHub: github.com/ascend-x\nTryHackMe: tryhackme.com/p/ascendx001\nLinkedIn: linkedin.com/in/ascend-x',
+		'projects/qavach.exe': '[EXECUTABLE BLOCKED BY FIREWALL]\nDescription: QAVACH Identity Platform',
+		'projects/darklead_infra.sh': '#!/bin/bash\necho "Deploying DarkLead CTF Infrastructure..."\n# [REDACTED]',
+		'projects/ics_dashboard.html': '<!DOCTYPE html>\n<html>\n  <head><title>ICS Security</title></head>\n  <body>\n    <h1>SCADA Status: SECURE</h1>\n  </body>\n</html>',
+		'skills/offensive_sec.txt': '[*] Web Application Penetration Testing\n[*] Network Security\n[*] Binary Exploitation (BinExp)',
+		'skills/cloud.config': 'provider "aws" {\n  region = "us-east-1"\n}\n\n// AWS, GCP, K8s Architecture',
+		'skills/crypto.key': '-----BEGIN PQC PRIVATE KEY-----\nMIIB... [REDACTED BY SYSTEM] ...\n-----END PQC PRIVATE KEY-----'
 	};
 
 	// Commands
@@ -104,29 +108,43 @@
 			case 'help':
 				return `Available commands:
   <span class="text-accent">whoami</span>    - Display user information
-  <span class="text-accent">ls</span>        - List directory contents
+  <span class="text-accent">ls</span>        - List directory contents (usage: ls [dir])
   <span class="text-accent">cat</span>       - Read file contents (usage: cat <file>)
+  <span class="text-accent">resume</span>    - Download my resume PDF
+  <span class="text-accent">socials</span>   - Display social links
   <span class="text-accent">clear</span>     - Clear the terminal screen
   <span class="text-accent">sudo</span>      - Execute a command as superuser
   <span class="text-accent">neofetch</span>  - Show system information
   <span class="text-accent">ping</span>      - Send ICMP ECHO_REQUEST to network hosts
   <span class="text-accent">hack</span>      - [RESTRICTED COMMAND]
+  <span class="text-accent">decrypt</span>   - Crack a hash (usage: decrypt <hash>)
   <span class="text-accent">matrix</span>    - Enter the matrix
   <span class="text-accent">exit</span>      - Close the terminal`;
 			
 			case 'whoami':
-				return 'guest\n\nWait, you are not me. Are you a recruiter? If so, type <span class="text-accent">cat contact.txt</span>';
+				return 'guest\n\nWait, you are not me. Are you a recruiter? If so, type <span class="text-accent">resume</span> to download my resume, or <span class="text-accent">cat contact.txt</span> to hire me!';
 			
+			case 'resume':
+			    window.open('/Nandakishore_Resume.pdf', '_blank');
+			    return 'Initiating secure file transfer... <span class="text-green-500">[DOWNLOAD STARTED]</span>';
+
 			case 'ls':
+				if (args[1] === 'projects' || args[1] === 'projects/') {
+					return 'qavach.exe   darklead_infra.sh   ics_dashboard.html';
+				} else if (args[1] === 'skills' || args[1] === 'skills/') {
+					return 'offensive_sec.txt   cloud.config   crypto.key';
+				}
 				return `<span class="text-blue-400 font-bold">projects/</span>   <span class="text-blue-400 font-bold">skills/</span>   resume.txt   contact.txt`;
+			
+			case 'socials':
+			    return `<span class="text-accent">GitHub:</span>    github.com/ascend-x\n<span class="text-accent">TryHackMe:</span> tryhackme.com/p/ascendx001\n<span class="text-accent">LinkedIn:</span>  linkedin.com/in/ascend-x`;
 			
 			case 'cat':
 				if (args.length < 2) return 'cat: missing file operand';
-				let file = args[1].replace('/', '');
+				let file = args[1];
 				
-				// Handle directory attempts
-				if (file === 'projects' || file === 'skills') {
-				    // Automatically cat it anyway because it's a mock
+				if (file === 'projects' || file === 'projects/' || file === 'skills' || file === 'skills/') {
+				    return `cat: ${file}: Is a directory`;
 				}
 				
 				if (fileSystem[file as keyof typeof fileSystem]) {
@@ -140,6 +158,14 @@
 			case 'hack':
 				return 'Initiating breach protocol...\nBypassing mainframe... <span class="text-green-500">[OK]</span>\nDecrypting passwords... <span class="text-green-500">[OK]</span>\nDownloading secret files... <span class="text-red-500">[ERROR]</span>\nConnection blocked by recruiter firewall.';
 			
+			case 'decrypt':
+			    if (args.length < 2) return 'ERROR: Target hash required.\nUsage: decrypt <hash>\nHint: What is the name of this project?';
+			    const hash = args[1].toLowerCase();
+			    if (hash === 'ascendx' || hash === 'ascend-x') {
+			        return 'Initiating brute force...\n<span class="text-yellow-500">[||||||||||||||||||||] 100%</span>\n<span class="text-green-500">Decryption successful!</span>\nWelcome back, Commander.';
+			    }
+			    return `Initiating brute force...\n<span class="text-red-500">[|||||||.............] 35%</span>\n<span class="text-red-500">Decryption failed.</span> Hash '${hash}' does not match.`;
+
 			case 'matrix':
 			    document.getElementById('terminal-overlay')?.classList.add('text-green-500');
 			    document.getElementById('terminal-overlay')?.classList.remove('text-gray-300');

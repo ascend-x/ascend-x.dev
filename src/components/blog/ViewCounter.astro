@@ -1,4 +1,8 @@
 ---
+interface Props {
+	views?: string | number;
+}
+const { views } = Astro.props;
 ---
 
 <div class="flex items-center gap-1.5 text-muted text-sm font-medium mt-2 sm:mt-0" title="Live view count">
@@ -6,10 +10,11 @@
 		<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
 		<circle cx="12" cy="12" r="3" />
 	</svg>
-	<span id="stats-views">...</span>
+	<span id="stats-views">{views ? views : "..."}</span>
 	<span>views</span>
 </div>
 
+{!views && (
 <script is:inline>
 	// GoatCounter automatically populates this when the script loads
 	var t = setInterval(function() {
@@ -22,3 +27,4 @@
 		}
 	}, 100);
 </script>
+)}

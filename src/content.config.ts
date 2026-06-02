@@ -10,6 +10,7 @@ const titleSchema = z.string().max(60);
 
 const baseSchema = z.object({
 	title: titleSchema,
+	views: z.union([z.string(), z.number()]).optional(),
 });
 
 const post = defineCollection({
