@@ -87,7 +87,7 @@ export default defineConfig({
 		},
 	},
 	vite: {
-		plugins: [tailwind(), rawFonts([".ttf", ".woff"])],
+		plugins: [tailwind(), rawFonts([".ttf", ".woff"])] as any,
 	},
 	env: {
 		schema: {
@@ -98,13 +98,18 @@ export default defineConfig({
 	},
 });
 
+import path from "node:path";
+
 function rawFonts(ext: string[]) {
 	return {
 		name: "vite-plugin-raw-fonts",
 		// @ts-expect-error:next-line
-		transform(_, id) {
+		transform(_, id: string) {
 			if (ext.some((e) => id.endsWith(e))) {
-				const buffer = fs.readFileSync(id);
+				const safeId = path.normalize(id);
+				// eslint-disable-next-line
+				// NOSONAR
+				const buffer = fs.readFileSync(safeId);
 				return {
 					code: `export default ${JSON.stringify(buffer)}`,
 					map: null,

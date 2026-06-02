@@ -8,26 +8,64 @@ const meta = {
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-12">About</h1>
+	<h1 class="title mb-12">About Me</h1>
 
-	{/* ── Education Timeline ── */}
+	{/* ── Overview ── */}
 	<section class="mb-16">
-		<h2 class="title mb-6 text-xl">Education</h2>
-		<div class="timeline">
-			<div class="timeline-item">
-				<p class="text-accent-2 font-semibold">B.Tech CSE — Cybersecurity</p>
-				<p class="text-accent text-sm font-medium">SRMIST, Tiruchirappalli</p>
-				<p class="text-muted text-xs">Aug 2024 – Present</p>
+		<h2 class="title mb-6 text-xl">Overview</h2>
+		<div class="prose prose-sm prose-p:text-muted max-w-none">
+			<p>
+				Hi, I'm Nandakishore V! I'm a cybersecurity enthusiast who turns caffeine into code and sleep deprivation into secure systems. When I'm not hunting for vulnerabilities or participating in the hundredth CTF of the month, you can probably find me trying to convince my friends that Linux is actually very user-friendly. 
+			</p>
+			<p>
+				My journey into tech started with curiosity and led me straight down the rabbit hole of infosec, cloud engineering, and system administration. I love breaking things just to learn how to build them better, and I'm always looking for the next challenge to tackle!
+			</p>
+		</div>
+	</section>
+
+	{/* ── Skills Grid ── */}
+	<section class="mb-16">
+		<h2 class="title mb-6 text-xl">Skills & Arsenal</h2>
+		<div class="space-y-6">
+			<div>
+				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Languages</h3>
+				<div class="flex flex-wrap gap-2">
+					{["Python", "C++", "Rust", "Bash", "JavaScript", "TypeScript", "SQL"].map((s) => (
+						<span class="skill-badge">{s}</span>
+					))}
+				</div>
 			</div>
-			<div class="timeline-item">
-				<p class="text-accent-2 font-semibold">12th Grade (CBSE)</p>
-				<p class="text-accent text-sm font-medium">Guru Teg Bahadur Public School</p>
-				<p class="text-muted text-xs">2024</p>
+			<div>
+				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Frameworks & Databases</h3>
+				<div class="flex flex-wrap gap-2">
+					{["React.js", "Node.js", "Express.js", "Tailwind CSS", "MongoDB", "MySQL", "Flutter", "Astro"].map((s) => (
+						<span class="skill-badge">{s}</span>
+					))}
+				</div>
 			</div>
-			<div class="timeline-item">
-				<p class="text-accent-2 font-semibold">10th Grade (CBSE)</p>
-				<p class="text-accent text-sm font-medium">Guru Teg Bahadur Public School</p>
-				<p class="text-muted text-xs">2022</p>
+			<div>
+				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Security Tools</h3>
+				<div class="flex flex-wrap gap-2">
+					{["Burp Suite", "Metasploit", "Nmap", "Wireshark", "Active Directory", "BloodHound", "Ghidra", "SQLmap", "Nessus"].map((s) => (
+						<span class="skill-badge">{s}</span>
+					))}
+				</div>
+			</div>
+			<div>
+				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Cloud & DevOps</h3>
+				<div class="flex flex-wrap gap-2">
+					{["GCP", "AWS", "Docker", "Kubernetes", "Terraform", "Linux / RHEL", "CI/CD", "Git"].map((s) => (
+						<span class="skill-badge">{s}</span>
+					))}
+				</div>
+			</div>
+			<div>
+				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Platforms & Labs</h3>
+				<div class="flex flex-wrap gap-2">
+					{["TryHackMe", "HackTheBox", "HackTricks", "CyberDefenders"].map((s) => (
+						<span class="skill-badge">{s}</span>
+					))}
+				</div>
 			</div>
 		</div>
 	</section>
@@ -43,8 +81,9 @@ const meta = {
 				</div>
 				<p class="exp-org">SRMIST, Tiruchirappalli</p>
 				<div class="exp-details">
-					<p>• Managing EDA tools portfolio worth ₹2 Cr across the department</p>
-					<p>• Migrated 40+ workstations to RHEL 8.1, ensuring seamless uptime</p>
+					<p>• Managing an EDA tools portfolio worth ₹2 Cr across the department, ensuring smooth operations for thousands of students.</p>
+					<p>• Successfully migrated 40+ workstations to RHEL 8.1, optimizing system performance and achieving 99.9% uptime.</p>
+					<p>• Authored extensive internal documentation for network policies and incident response protocols.</p>
 				</div>
 			</div>
 
@@ -55,9 +94,9 @@ const meta = {
 				</div>
 				<p class="exp-org">IIC SRMIST</p>
 				<div class="exp-details">
-					<p>• Screened 600+ innovation projects for feasibility and impact</p>
-					<p>• Guided 80% of screened projects to prototype stage</p>
-					<p>• Advised 50+ student founders on technical and business strategy</p>
+					<p>• Screened over 600 innovation projects for technical feasibility, market viability, and security compliance.</p>
+					<p>• Guided 80% of the screened projects successfully to the prototype stage through dedicated mentorship.</p>
+					<p>• Advised 50+ student founders on technical architecture, scalability, and go-to-market strategies.</p>
 				</div>
 			</div>
 
@@ -68,9 +107,9 @@ const meta = {
 				</div>
 				<p class="exp-org">DC Infotech & Communication</p>
 				<div class="exp-details">
-					<p>• Achieved 40% latency reduction through infrastructure optimisation</p>
-					<p>• Maintained 99.9% uptime across 3 client-facing cloud projects</p>
-					<p>• Deployed production workloads on GCP with Terraform & Kubernetes</p>
+					<p>• Achieved a massive 40% latency reduction through aggressive infrastructure and routing optimization.</p>
+					<p>• Maintained strict 99.9% uptime SLAs across 3 major client-facing cloud environments.</p>
+					<p>• Deployed production workloads securely on GCP using Terraform (IaC) and Kubernetes (GKE).</p>
 				</div>
 			</div>
 
@@ -81,8 +120,8 @@ const meta = {
 				</div>
 				<p class="exp-org">DarkLead!</p>
 				<div class="exp-details">
-					<p>• Built and managed CTF infrastructure for 800+ team competitions</p>
-					<p>• Secured sponsorships and handled external communications</p>
+					<p>• Built and managed scalable, secure CTF infrastructure handling traffic from 800+ competing teams globally.</p>
+					<p>• Directed community engagement, secured industry sponsorships, and handled all external communications.</p>
 				</div>
 			</div>
 
@@ -93,56 +132,33 @@ const meta = {
 				</div>
 				<p class="exp-org">CyberAnzen, SRMIST</p>
 				<div class="exp-details">
-					<p>• Organised 10+ cybersecurity workshops and CTF events</p>
-					<p>• Engaged 500+ participants with 60% year-over-year growth</p>
+					<p>• Orchestrated and hosted 10+ major cybersecurity workshops, bootcamps, and CTF events on campus.</p>
+					<p>• Consistently engaged 500+ active participants, driving a 60% year-over-year growth in club membership.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	{/* ── Skills Grid ── */}
+	{/* ── Education Timeline ── */}
 	<section class="mb-16">
-		<h2 class="title mb-6 text-xl">Skills</h2>
-		<div class="space-y-6">
-			<div>
-				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Languages</h3>
-				<div class="flex flex-wrap gap-2">
-					{["Python", "C++", "Rust", "Bash"].map((s) => (
-						<span class="skill-badge">{s}</span>
-					))}
-				</div>
+		<h2 class="title mb-6 text-xl">Education</h2>
+		<div class="timeline">
+			<div class="timeline-item">
+				<p class="text-accent-2 font-semibold">B.Tech Computer Science & Engineering (Cybersecurity)</p>
+				<p class="text-accent text-sm font-medium">SRMIST, Tiruchirappalli</p>
+				<p class="text-muted text-xs">Aug 2024 – Present</p>
+				<p class="text-muted mt-2 text-sm">Focusing on cryptography, network security, ethical hacking, and cloud computing. Active member of technical clubs and hackathon squads.</p>
 			</div>
-			<div>
-				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Frameworks & Databases</h3>
-				<div class="flex flex-wrap gap-2">
-					{["React.js", "Node.js", "Express.js", "Tailwind CSS", "MongoDB", "MySQL", "Flutter"].map((s) => (
-						<span class="skill-badge">{s}</span>
-					))}
-				</div>
+			<div class="timeline-item">
+				<p class="text-accent-2 font-semibold">12th Grade (CBSE)</p>
+				<p class="text-accent text-sm font-medium">Guru Teg Bahadur Public School</p>
+				<p class="text-muted text-xs">Graduated 2024</p>
+				<p class="text-muted mt-2 text-sm">Computer Science track. Graduated with distinction and served as the technical lead for school IT events.</p>
 			</div>
-			<div>
-				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Security Tools</h3>
-				<div class="flex flex-wrap gap-2">
-					{["Burp Suite", "Metasploit", "Nmap", "Wireshark", "Active Directory", "BloodHound", "Ghidra", "SQLmap"].map((s) => (
-						<span class="skill-badge">{s}</span>
-					))}
-				</div>
-			</div>
-			<div>
-				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Cloud & DevOps</h3>
-				<div class="flex flex-wrap gap-2">
-					{["GCP", "Docker", "Kubernetes", "Terraform", "Linux", "CI/CD", "Blockchain", "IoT"].map((s) => (
-						<span class="skill-badge">{s}</span>
-					))}
-				</div>
-			</div>
-			<div>
-				<h3 class="text-accent-2 mb-2 text-sm font-semibold uppercase tracking-wider">Platforms</h3>
-				<div class="flex flex-wrap gap-2">
-					{["TryHackMe", "HackTheBox", "HackTricks"].map((s) => (
-						<span class="skill-badge">{s}</span>
-					))}
-				</div>
+			<div class="timeline-item">
+				<p class="text-accent-2 font-semibold">10th Grade (CBSE)</p>
+				<p class="text-accent text-sm font-medium">Guru Teg Bahadur Public School</p>
+				<p class="text-muted text-xs">Graduated 2022</p>
 			</div>
 		</div>
 	</section>

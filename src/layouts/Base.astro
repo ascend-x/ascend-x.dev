@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
+import InteractiveTerminal from "@/components/InteractiveTerminal.astro";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
 
@@ -37,10 +38,13 @@ const {
 	>
 		<SkipLink />
 		<Header />
-		<main id="main">
+		<main id="main" class="flex-1">
 			<slot />
 		</main>
 		<Footer />
+		
+		<InteractiveTerminal />
+
 		<script is:inline type="speculationrules">
 			{
 				"prefetch": [

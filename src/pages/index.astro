@@ -6,6 +6,9 @@ import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
 
+import { Image } from "astro:assets";
+import meImage from "@/assets/me.jpg";
+
 // Posts
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -26,17 +29,39 @@ const allSeries = await getCollection("series");
 
 <PageLayout meta={{ title: "Home" }}>
 	{/* ── Hero Section ── */}
-	<section class="mb-16">
-		<p class="text-muted mb-2 text-sm font-medium">Hi, I'm</p>
-		<h1 class="title mb-3 text-3xl sm:text-4xl">Nandakishore V</h1>
-		<div class="mb-6 flex items-center gap-1 text-lg font-medium sm:text-xl" id="typewriter-container">
-			<span class="text-accent" id="typewriter-text"></span>
-			<span class="typewriter-cursor h-5 sm:h-6">&nbsp;</span>
+	<section
+		class="mt-8 mb-16 flex flex-col-reverse items-center justify-between gap-8 sm:flex-row sm:gap-12"
+	>
+		<div class="w-full flex-1 text-center sm:text-left">
+			<h1 class="title mb-3 text-3xl sm:text-4xl">Nandakishore V</h1>
+			<div
+				class="mb-6 flex items-center justify-center gap-1 text-lg font-medium sm:justify-start sm:text-xl"
+				id="typewriter-container"
+			>
+				<span class="text-accent" id="typewriter-text"></span>
+				<span class="typewriter-cursor h-5 sm:h-6">&nbsp;</span>
+			</div>
+			<div class="mb-8 flex items-center justify-center gap-2 text-xs sm:text-sm font-medium tracking-widest text-muted sm:justify-start uppercase">
+				<span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+					<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+					<span class="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-accent"></span>
+				</span>
+				System Online | Open to Opportunities
+			</div>
+			<div class="flex justify-center sm:justify-start">
+				<SocialList />
+			</div>
 		</div>
-
-
-
-		<SocialList />
+		<div
+			class="relative h-56 w-56 flex-shrink-0 sm:h-64 sm:w-64"
+			style="mask-image: radial-gradient(circle at center, black 55%, transparent 100%); -webkit-mask-image: radial-gradient(circle at center, black 55%, transparent 100%);"
+		>
+			<Image
+				src={meImage}
+				alt="Nandakishore V"
+				class="h-full w-full scale-110 object-cover object-[center_20%]"
+			/>
+		</div>
 	</section>
 
 	{/* ── Stats Bar ── */}
@@ -73,37 +98,147 @@ const allSeries = await getCollection("series");
 		</div>
 	</section>
 
-	{/* ── Playlists / Series ── */}
-	{allSeries.length > 0 && (
-		<section class="mb-16">
-			<h2 class="title mb-6 text-xl flex items-center gap-2">
-				<svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 9l-4 3V7l4 3z"/></svg>
-				Featured Series
-			</h2>
-			<div class="grid gap-4 sm:grid-cols-2">
-				{allSeries.map((series) => (
-					<a href={`/series/${series.id}/`} class="group relative flex flex-col justify-between rounded-lg border border-transparent bg-muted/10 p-4 shadow-sm ring-1 ring-border transition-all hover:border-accent hover:shadow-md">
-						<div>
-							<h3 class="text-accent font-semibold group-hover:underline">{series.data.title}</h3>
-							<p class="text-muted mt-2 text-sm line-clamp-2">{series.data.description}</p>
-						</div>
-						<div class="mt-4 flex items-center gap-1 text-xs font-medium text-accent">
-							View Series <span aria-hidden="true">→</span>
-						</div>
-					</a>
-				))}
+	{/* ── Core Expertise ── */}
+	<section class="mb-16">
+		<h2 class="title mb-6 flex items-center gap-2 text-xl">
+			<svg
+				class="text-accent h-5 w-5"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg
+			>
+			Core Expertise
+		</h2>
+		<div class="grid gap-4 sm:grid-cols-2">
+			<div class="group relative overflow-hidden rounded-lg border border-border bg-global-text/5 p-5 transition-all hover:border-accent/50 hover:bg-global-text/10">
+				<div class="mb-3 flex items-center gap-3">
+					<svg class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+					<h3 class="font-semibold text-accent-2">Offensive Security & CTFs</h3>
+				</div>
+				<p class="text-sm text-muted leading-relaxed">
+					Deep expertise in network exploitation, web application security, and binary analysis. Consistently ranking high in international CTFs and HackTheBox.
+				</p>
 			</div>
-		</section>
-	)}
 
+			<div class="group relative overflow-hidden rounded-lg border border-border bg-global-text/5 p-5 transition-all hover:border-accent/50 hover:bg-global-text/10">
+				<div class="mb-3 flex items-center gap-3">
+					<svg class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+					<h3 class="font-semibold text-accent-2">Cloud Infrastructure</h3>
+				</div>
+				<p class="text-sm text-muted leading-relaxed">
+					Architecting and deploying scalable, secure cloud environments across AWS and GCP using Kubernetes, Docker, and Terraform.
+				</p>
+			</div>
 
+			<div class="group relative overflow-hidden rounded-lg border border-border bg-global-text/5 p-5 transition-all hover:border-accent/50 hover:bg-global-text/10">
+				<div class="mb-3 flex items-center gap-3">
+					<svg class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+					<h3 class="font-semibold text-accent-2">Next-Gen Cryptography</h3>
+				</div>
+				<p class="text-sm text-muted leading-relaxed">
+					Building future-proof identity platforms leveraging Post-Quantum Cryptography (PQC) algorithms and memory-safe languages like Rust.
+				</p>
+			</div>
+
+			<div class="group relative overflow-hidden rounded-lg border border-border bg-global-text/5 p-5 transition-all hover:border-accent/50 hover:bg-global-text/10">
+				<div class="mb-3 flex items-center gap-3">
+					<svg class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+					<h3 class="font-semibold text-accent-2">DevSecOps & Automation</h3>
+				</div>
+				<p class="text-sm text-muted leading-relaxed">
+					Integrating robust security gates directly into CI/CD pipelines. Writing automated deployment scripts that enforce infrastructure-as-code principles.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	{/* ── Featured Projects ── */}
+	<section class="mb-16">
+		<h2 class="title mb-6 flex items-center gap-2 text-xl">
+			<svg
+				class="text-accent h-5 w-5"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+				></path></svg
+			>
+			Featured Projects
+		</h2>
+		<div class="grid gap-4 sm:grid-cols-2">
+			<div class="project-card">
+				<h3 class="project-title">QAVACH Identity Platform</h3>
+				<p class="project-desc">
+					A Post-Quantum Cryptography identity platform. Won ₹50,000 prize at the Cyber Shield
+					Hackathon organized by MeitY, ISEA & CISA.
+				</p>
+				<div class="project-tags">
+					<span class="skill-badge">Cryptography</span>
+					<span class="skill-badge">Rust</span>
+					<span class="skill-badge">React</span>
+				</div>
+			</div>
+
+			<div class="project-card">
+				<h3 class="project-title">ICS Security Dashboard</h3>
+				<p class="project-desc">
+					Real-time monitoring dashboard for Industrial Control Systems. Built during the HTB Cyber
+					Hackathon Chennai competing against 600 teams.
+				</p>
+				<div class="project-tags">
+					<span class="skill-badge">Python</span>
+					<span class="skill-badge">IoT</span>
+					<span class="skill-badge">Dashboard</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ── Playlists / Series ── */}
+	{
+		allSeries.length > 0 && (
+			<section class="mb-16">
+				<h2 class="title mb-6 flex items-center gap-2 text-xl">
+					<svg class="text-accent h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 9l-4 3V7l4 3z" />
+					</svg>
+					Featured Series
+				</h2>
+				<div class="grid gap-4 sm:grid-cols-2">
+					{allSeries.map((series) => (
+						<a
+							href={`/series/${series.id}/`}
+							class="group bg-muted/10 ring-border hover:border-accent relative flex flex-col justify-between rounded-lg border border-transparent p-4 shadow-sm ring-1 transition-all hover:shadow-md"
+						>
+							<div>
+								<h3 class="text-accent font-semibold group-hover:underline">{series.data.title}</h3>
+								<p class="text-muted mt-2 line-clamp-2 text-sm">{series.data.description}</p>
+							</div>
+							<div class="text-accent mt-4 flex items-center gap-1 text-xs font-medium">
+								View Series <span aria-hidden="true">→</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+		)
+	}
 
 	{/* ── Pinned Posts ── */}
 	{
 		pinnedPosts.length > 0 && (
 			<section class="mt-16">
-				<h2 class="title mb-6 text-xl flex items-center gap-2">
-					<svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>
+				<h2 class="title mb-6 flex items-center gap-2 text-xl">
+					<svg class="text-accent h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z" />
+					</svg>
 					Pinned Posts
 				</h2>
 				<ul class="space-y-4" role="list">
@@ -119,8 +254,12 @@ const allSeries = await getCollection("series");
 
 	{/* ── Latest Posts ── */}
 	<section class="mt-16">
-		<h2 class="title mb-6 text-xl flex items-center gap-2">
-			<svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+		<h2 class="title mb-6 flex items-center gap-2 text-xl">
+			<svg class="text-accent h-5 w-5" viewBox="0 0 24 24" fill="currentColor"
+				><path
+					d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+				></path></svg
+			>
 			<a href="/posts/" class="hover:text-accent transition-colors">Latest Posts</a>
 		</h2>
 		<ul class="space-y-4" role="list">

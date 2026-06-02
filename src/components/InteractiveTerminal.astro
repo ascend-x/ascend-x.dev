@@ -1,0 +1,204 @@
+---
+---
+<div id="terminal-overlay" class="fixed inset-x-0 top-0 z-50 transform -translate-y-full transition-transform duration-500 ease-in-out h-[60vh] max-h-[600px] shadow-2xl bg-[#0F111A] border-b border-accent/50 font-mono text-sm sm:text-base text-gray-300 flex flex-col">
+	{/* Terminal Header */}
+	<div class="flex items-center justify-between px-4 py-2 bg-[#1A1D27] border-b border-accent/20 select-none">
+		<div class="flex gap-2">
+			<button id="term-close-btn" class="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 focus:outline-none" aria-label="Close"></button>
+			<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+			<div class="w-3 h-3 rounded-full bg-green-500"></div>
+		</div>
+		<div class="text-xs text-gray-500 font-semibold tracking-widest">ascend-x@mission-control:~</div>
+		<div class="w-12"></div> {/* Spacer to center title */}
+	</div>
+
+	{/* Terminal Body */}
+	<div id="terminal-body" class="flex-1 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-accent/50 scrollbar-track-transparent">
+		<div class="mb-4 text-accent">
+			<p>Ascend-X Terminal v2.0.1</p>
+			<p>Type <span class="text-white">'help'</span> to see available commands.</p>
+		</div>
+		
+		<div id="terminal-output" class="flex flex-col gap-2 whitespace-pre-wrap break-words"></div>
+
+		{/* Input Line */}
+		<div class="flex items-center gap-2 mt-2">
+			<span class="text-green-500 font-bold shrink-0">ascend-x@web<span class="text-white">:</span><span class="text-blue-400">~</span>$</span>
+			<input 
+				type="text" 
+				id="terminal-input" 
+				class="flex-1 bg-transparent border-none outline-none text-gray-200 caret-accent focus:ring-0 p-0"
+				autocomplete="off"
+				spellcheck="false"
+			/>
+		</div>
+	</div>
+</div>
+
+{/* Floating Toggle Button */}
+<button id="terminal-toggle-btn" class="fixed bottom-6 right-6 z-40 bg-[#1A1D27] border border-accent/50 text-accent rounded-full p-3 shadow-lg shadow-accent/20 hover:shadow-accent/40 hover:scale-105 transition-all focus:outline-none group flex items-center gap-2" aria-label="Toggle Terminal">
+	<svg class="w-6 h-6 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+	<span class="hidden sm:inline text-xs font-semibold mr-1 group-hover:text-white transition-colors tracking-wider">TERMINAL</span>
+</button>
+
+<script>
+	const terminalOverlay = document.getElementById('terminal-overlay');
+	const terminalInput = document.getElementById('terminal-input') as HTMLInputElement;
+	const terminalOutput = document.getElementById('terminal-output');
+	const terminalBody = document.getElementById('terminal-body');
+	const toggleBtn = document.getElementById('terminal-toggle-btn');
+	const closeBtn = document.getElementById('term-close-btn');
+
+	let isOpen = false;
+
+	const toggleTerminal = () => {
+		isOpen = !isOpen;
+		if (isOpen) {
+			terminalOverlay?.classList.remove('-translate-y-full');
+			terminalOverlay?.classList.add('translate-y-0');
+			setTimeout(() => terminalInput?.focus(), 300);
+		} else {
+			terminalOverlay?.classList.remove('translate-y-0');
+			terminalOverlay?.classList.add('-translate-y-full');
+			terminalInput?.blur();
+		}
+	};
+
+	// Event Listeners for opening/closing
+	toggleBtn?.addEventListener('click', toggleTerminal);
+	closeBtn?.addEventListener('click', toggleTerminal);
+
+	document.addEventListener('keydown', (e) => {
+		// Ctrl + ~ or Ctrl + `
+		if (e.ctrlKey && (e.key === '`' || e.key === '~')) {
+			e.preventDefault();
+			toggleTerminal();
+		}
+		// Close on Escape
+		if (e.key === 'Escape' && isOpen) {
+			toggleTerminal();
+		}
+	});
+
+	// Keep focus on input when terminal is clicked
+	terminalBody?.addEventListener('click', () => {
+		if (isOpen) terminalInput?.focus();
+	});
+
+	// File System Mock
+	const fileSystem = {
+		'projects': 'QAVACH Identity Platform\nDarkLead CTF Infra\nICS Security Dashboard',
+		'skills': 'Offensive Security (Web, Net, BinExp)\nCloud Infrastructure (AWS/GCP/K8s)\nCryptography (PQC)\nDevSecOps',
+		'resume.txt': 'Accessing top secret clearance...\n\nNandakishore V\nRoles: Penetration Tester, Cloud Security Engineer\nCTFs Played: 120+\nHackathons Won: 15+\n\nStatus: OPEN TO OPPORTUNITIES',
+		'contact.txt': 'Email: nk.ascendx@gmail.com\nGitHub: github.com/ascend-x\nTryHackMe: tryhackme.com/p/ascendx001\nLinkedIn: linkedin.com/in/ascend-x'
+	};
+
+	// Commands
+	const executeCommand = (cmd: string) => {
+		const args = cmd.trim().split(' ').filter(Boolean);
+		if (args.length === 0) return '';
+
+		const command = args[0].toLowerCase();
+
+		switch (command) {
+			case 'help':
+				return `Available commands:
+  <span class="text-accent">whoami</span>    - Display user information
+  <span class="text-accent">ls</span>        - List directory contents
+  <span class="text-accent">cat</span>       - Read file contents (usage: cat <file>)
+  <span class="text-accent">clear</span>     - Clear the terminal screen
+  <span class="text-accent">sudo</span>      - Execute a command as superuser
+  <span class="text-accent">neofetch</span>  - Show system information
+  <span class="text-accent">ping</span>      - Send ICMP ECHO_REQUEST to network hosts
+  <span class="text-accent">hack</span>      - [RESTRICTED COMMAND]
+  <span class="text-accent">matrix</span>    - Enter the matrix
+  <span class="text-accent">exit</span>      - Close the terminal`;
+			
+			case 'whoami':
+				return 'guest\n\nWait, you are not me. Are you a recruiter? If so, type <span class="text-accent">cat contact.txt</span>';
+			
+			case 'ls':
+				return `<span class="text-blue-400 font-bold">projects/</span>   <span class="text-blue-400 font-bold">skills/</span>   resume.txt   contact.txt`;
+			
+			case 'cat':
+				if (args.length < 2) return 'cat: missing file operand';
+				let file = args[1].replace('/', '');
+				
+				// Handle directory attempts
+				if (file === 'projects' || file === 'skills') {
+				    // Automatically cat it anyway because it's a mock
+				}
+				
+				if (fileSystem[file as keyof typeof fileSystem]) {
+					return fileSystem[file as keyof typeof fileSystem];
+				}
+				return `cat: ${args[1]}: No such file or directory`;
+			
+			case 'sudo':
+				return 'guest is not in the sudoers file. This incident will be reported to Nandakishore.';
+				
+			case 'hack':
+				return 'Initiating breach protocol...\nBypassing mainframe... <span class="text-green-500">[OK]</span>\nDecrypting passwords... <span class="text-green-500">[OK]</span>\nDownloading secret files... <span class="text-red-500">[ERROR]</span>\nConnection blocked by recruiter firewall.';
+			
+			case 'matrix':
+			    document.getElementById('terminal-overlay')?.classList.add('text-green-500');
+			    document.getElementById('terminal-overlay')?.classList.remove('text-gray-300');
+			    return 'Matrix mode activated. Follow the white rabbit.';
+			
+			case 'neofetch':
+			case 'fetch':
+			    return `<span class="text-accent font-bold">
+    ____
+   /   /|      <span class="text-white">OS:</span> Ascend-XOS
+  /___/ |      <span class="text-white">Kernel:</span> Cyber-Kernel 4.2.0
+  |   | |      <span class="text-white">Uptime:</span> 1337 days
+  |___|/       <span class="text-white">Packages:</span> 404
+               <span class="text-white">Shell:</span> bash
+               <span class="text-white">Terminal:</span> AscendTerm
+</span>`;
+
+            case 'ping':
+                const target = args[1] || 'localhost';
+                return `PING ${target} (127.0.0.1) 56(84) bytes of data.\n64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.032 ms\n64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.028 ms\n64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.030 ms`;
+
+			case 'clear':
+				if (terminalOutput) terminalOutput.innerHTML = '';
+				return null;
+
+			case 'exit':
+				toggleTerminal();
+				return 'logout';
+
+			default:
+				return `ascend-x: command not found: ${command}. Type 'help' for available commands.`;
+		}
+	};
+
+	terminalInput?.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter') {
+			const cmd = terminalInput.value;
+			terminalInput.value = '';
+
+			if (!terminalOutput) return;
+
+			// Echo command
+			const promptLine = document.createElement('div');
+			promptLine.innerHTML = `<span class="text-green-500 font-bold">ascend-x@web<span class="text-white">:</span><span class="text-blue-400">~</span>$</span> <span class="text-white">${cmd}</span>`;
+			terminalOutput.appendChild(promptLine);
+
+			// Execute and print response
+			const response = executeCommand(cmd);
+			if (response !== null) {
+				const responseLine = document.createElement('div');
+				responseLine.className = 'text-gray-300 mb-2 mt-1';
+				responseLine.innerHTML = response;
+				terminalOutput.appendChild(responseLine);
+			}
+
+			// Scroll to bottom
+			if (terminalBody) {
+				terminalBody.scrollTop = terminalBody.scrollHeight;
+			}
+		}
+	});
+</script>
