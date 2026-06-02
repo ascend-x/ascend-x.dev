@@ -179,7 +179,7 @@
 		transform: translateY(-1px);
 	}
 	.achievement-entry .achievement-medal {
-		@apply text-xl leading-none flex-shrink-0;
+		@apply text-xl leading-none shrink-0;
 	}
 	.achievement-entry .achievement-info {
 		@apply flex-1;
