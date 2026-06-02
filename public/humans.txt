@@ -1,0 +1,12 @@
+/* TEAM */
+Author: Nandakishore V
+Role: Cybersecurity Engineer & Penetration Tester
+Contact: nk.ascendx@gmail.com
+GitHub: @ascend-x
+
+/* SITE */
+Last update: 2026/06/02
+Language: English
+Standards: HTML5, CSS3, ES6
+Components: Astro, Tailwind CSS, TypeScript
+Software: Built from scratch. No Wordpress, no bloat.

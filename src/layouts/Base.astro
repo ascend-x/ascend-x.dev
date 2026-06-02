@@ -22,14 +22,7 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ThemeProvider />
 
-		{/* Google Analytics */}
-		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-VVK02C78YX"></script>
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-VVK02C78YX');
-		</script>
+
 		{/* GoatCounter API */}
 		<script is:inline data-goatcounter="https://ascend-x.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 	</head>
@@ -63,6 +56,64 @@ const {
 						"eagerness": "moderate"
 					}
 				]
+			}
+		</script>
+
+		{/* Matrix Rain Easter Egg */}
+		<canvas id="matrix-canvas" class="fixed inset-0 z-[9999] pointer-events-none opacity-0 transition-opacity duration-1000"></canvas>
+		<script is:inline>
+			const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+			let konamiIndex = 0;
+			
+			document.addEventListener('keydown', (e) => {
+				if (e.key === konamiCode[konamiIndex]) {
+					konamiIndex++;
+					if (konamiIndex === konamiCode.length) {
+						activateMatrix();
+						konamiIndex = 0;
+					}
+				} else {
+					konamiIndex = 0;
+				}
+			});
+
+			function activateMatrix() {
+				const canvas = document.getElementById('matrix-canvas');
+				if (canvas.style.opacity === '1') {
+					canvas.style.opacity = '0';
+					return; // Toggle off
+				}
+				
+				canvas.style.opacity = '1';
+				const ctx = canvas.getContext('2d');
+				
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				
+				const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~';
+				const fontSize = 16;
+				const columns = canvas.width / fontSize;
+				const drops = Array.from({length: columns}).fill(1);
+				
+				function draw() {
+					ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+					ctx.fillRect(0, 0, canvas.width, canvas.height);
+					
+					ctx.fillStyle = '#0F0';
+					ctx.font = fontSize + 'px monospace';
+					
+					for (let i = 0; i < drops.length; i++) {
+						const text = letters.charAt(Math.floor(Math.random() * letters.length));
+						ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+						
+						if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+							drops[i] = 0;
+						}
+						drops[i]++;
+					}
+					requestAnimationFrame(draw);
+				}
+				draw();
 			}
 		</script>
 	</body>

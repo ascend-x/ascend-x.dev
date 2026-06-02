@@ -102,5 +102,14 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 		"headline": title,
 		"datePublished": articleDate,
 		"image": socialImageURL
-	} : {})
+	} : {
+		"potentialAction": {
+			"@type": "SearchAction",
+			"target": {
+				"@type": "EntryPoint",
+				"urlTemplate": `${siteConfig.url}/search?q={search_term_string}`
+			},
+			"query-input": "required name=search_term_string"
+		}
+	})
 })} />

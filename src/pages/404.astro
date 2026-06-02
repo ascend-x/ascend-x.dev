@@ -2,12 +2,44 @@
 import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
-	description: "Oops! It looks like this page is lost in space!",
-	title: "Oops! You found a missing page!",
+	description: "UNAUTHORIZED ACCESS DETECTED.",
+	title: "404 - HONEYPOT TRIGGERED",
 };
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-12">404 | Oops something went wrong</h1>
-	<p class="mb-8">Please use the navigation to find your way back</p>
+	<div class="flex flex-col items-center justify-center min-h-[60vh] text-center font-mono">
+		<svg class="w-24 h-24 text-red-500 mb-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+		
+		<h1 class="text-4xl sm:text-5xl font-black text-red-500 mb-4 uppercase tracking-widest" style="text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);">
+			SECURITY HONEYPOT TRIGGERED
+		</h1>
+		
+		<p class="text-xl text-global-text mb-8 border-l-4 border-red-500 pl-4 text-left inline-block bg-red-500/10 p-4 rounded-r-md">
+			<span class="text-red-400 font-bold block mb-2">WARNING: 404 NOT FOUND</span>
+			The directory you are attempting to access is classified.<br/>
+			Your connection has been logged and traced.
+		</p>
+		
+		<div class="terminal-block text-left w-full max-w-md mx-auto mb-8 border-l-2 border-red-500">
+			<div class="text-red-400">Initiating trace...</div>
+			<div class="text-muted" id="fake-ip-loader">Resolving origin IP...</div>
+			<div class="text-accent font-bold mt-2" id="fake-ip" style="display: none;"></div>
+		</div>
+
+		<a href="/" class="glitch-btn inline-flex items-center gap-2 rounded-md bg-global-text px-6 py-3 text-sm font-bold text-global-bg transition-all hover:scale-105" data-text="ABORT & RETURN TO SAFETY">
+			ABORT & RETURN TO SAFETY
+		</a>
+	</div>
+	
+	<script is:inline>
+		setTimeout(() => {
+			document.getElementById('fake-ip-loader').style.display = 'none';
+			const ipEl = document.getElementById('fake-ip');
+			ipEl.style.display = 'block';
+			// Generate a random scary looking IP
+			const ip = Array.from({length: 4}, () => Math.floor(Math.random() * 256)).join('.');
+			ipEl.innerHTML = `> TARGET LOCKED: ${ip}<br/>> REPORTING TO ADMIN...`;
+		}, 1500);
+	</script>
 </PageLayout>

@@ -14,7 +14,7 @@ export const siteConfig: SiteConfig = {
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
 	author: "Nandakishore V",
 	// Used as the default description meta property and webmanifest description
-	description: "Penetration Tester & Cloud Security Engineer | CTF Champion | GCP Specialist",
+	description: "Nandakishore V is a Cybersecurity Student, Penetration Tester & Cloud Security Engineer. Explore my CTF writeups, projects, and security research.",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-GB",
 	// Meta property, found in src/components/BaseHead.astro L:42

@@ -238,11 +238,39 @@
 	.admin-card:hover {
 		transform: translateY(-2px);
 	}
+	/* Glitch button effect */
+	.glitch-btn {
+		position: relative;
+		overflow: hidden;
+	}
+	.glitch-btn:hover::before {
+		content: attr(data-text);
+		position: absolute;
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: inherit;
+		color: inherit;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-shadow: 2px 0 red, -2px 0 cyan;
+		animation: glitch-anim 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+		z-index: 10;
+		mix-blend-mode: color-dodge;
+	}
 }
 
 @keyframes blink {
 	0%, 100% { opacity: 1; }
 	50% { opacity: 0; }
+}
+
+@keyframes glitch-anim {
+	0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+	20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+	40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+	60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+	80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 1px); }
+	100% { clip-path: inset(30% 0 50% 0); transform: translate(2px, -1px); }
 }
 
 @utility prose {
