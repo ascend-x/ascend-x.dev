@@ -16,16 +16,15 @@ const sections = [
 		description: "Write cybersecurity writeups, CTF walkthroughs, and technical articles.",
 		path: "src/content/post/",
 		editUrl: `${GITHUB_REPO}/tree/main/src/content/post`,
-		format: `---
-title: "Your Post Title"
-description: "Brief description"
-publishDate: "2026-01-01"
-tags: ["cybersecurity", "ctf"]
-draft: false
-pinned: false
----
-
-Your markdown content here...`,
+		format: "---\n" +
+			"title: \"Your Post Title\"\n" +
+			"description: \"Brief description\"\n" +
+			"publishDate: \"2026-01-01\"\n" +
+			"tags: [\"cybersecurity\", \"ctf\"]\n" +
+			"draft: false\n" +
+			"pinned: false\n" +
+			"---\n\n" +
+			"Your markdown content here...",
 	},
 	{
 		title: "Featured Series (Playlists)",
@@ -33,14 +32,12 @@ Your markdown content here...`,
 		description: "Create a new series to group multiple blog posts together.",
 		path: "src/content/series/",
 		editUrl: `${GITHUB_REPO}/tree/main/src/content/series`,
-		format: `---
-title: "Series Name"
-description: "Brief overview..."
----
-
-Your series description here.
-
-(To add a post to this series, add 'series: "filename"' to the post's frontmatter!)`,
+		format: "---\n" +
+			"title: \"Series Name\"\n" +
+			"description: \"Brief overview...\"\n" +
+			"---\n\n" +
+			"Your series description here.\n\n" +
+			"(To add a post to this series, add 'series: \"filename\"' to the post's frontmatter!)",
 	},
 	{
 		title: "Projects",
@@ -48,15 +45,14 @@ Your series description here.
 		description: "Add or edit project case studies.",
 		path: "src/content/project/",
 		editUrl: `${GITHUB_REPO}/tree/main/src/content/project`,
-		format: `---
-title: "Project Name"
-description: "What it does..."
-date: 2026-06-02
-technologies: ["Tag1", "Tag2"]
-githubUrl: "https://github.com/..."
----
-
-Full project writeup goes here...`,
+		format: "---\n" +
+			"title: \"Project Name\"\n" +
+			"description: \"What it does...\"\n" +
+			"date: 2026-06-02\n" +
+			"technologies: [\"Tag1\", \"Tag2\"]\n" +
+			"githubUrl: \"https://github.com/...\"\n" +
+			"---\n\n" +
+			"Full project writeup goes here...",
 	},
 	{
 		title: "Achievements",
@@ -64,14 +60,14 @@ Full project writeup goes here...`,
 		description: "Add hackathon wins, CTF placements, and certifications.",
 		path: "src/pages/achievements/index.astro",
 		editUrl: `${GITHUB_REPO}/blob/main/src/pages/achievements/index.astro`,
-		format: `// Add to the relevant array:
-{
-  medal: "🥇",
-  title: "Event Name",
-  org: "Organisation",
-  date: "Month Year",
-  detail: "Optional detail",
-}`,
+		format: "// Add to the relevant array:\n" +
+			"{\n" +
+			"  medal: \"🥇\",\n" +
+			"  title: \"Event Name\",\n" +
+			"  org: \"Organisation\",\n" +
+			"  date: \"Month Year\",\n" +
+			"  detail: \"Optional detail\",\n" +
+			"}",
 	},
 	{
 		title: "Experience & About",
