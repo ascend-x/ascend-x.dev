@@ -16,15 +16,32 @@ const { views } = Astro.props;
 
 {!views && (
 <script is:inline>
-	// GoatCounter automatically populates this when the script loads
-	var t = setInterval(function() {
-		if (window.goatcounter && window.goatcounter.visit_count) {
-			clearInterval(t);
-			window.goatcounter.visit_count({
-				append: '#stats-views',
-				no_branding: true
-			});
+	// Use a clean fetch request instead of the iframe injection to avoid breaking the layout on 403 errors
+	async function fetchViews() {
+		try {
+			// GoatCounter normalizes paths by stripping trailing slashes
+			let rawPath = location.pathname.replace(/\/$/, '');
+			if (rawPath === '') rawPath = '/';
+			
+			const path = encodeURIComponent(rawPath);
+			const response = await fetch(`https://ascend-x.goatcounter.com/counter/${path}.json`);
+			
+			if (!response.ok) {
+				console.warn('GoatCounter API returned an error.');
+				document.getElementById('stats-views').textContent = "0";
+				return;
+			}
+			
+			const data = await response.json();
+			// GoatCounter returns { count: "1" }
+			document.getElementById('stats-views').textContent = data.count || "0";
+		} catch (error) {
+			console.error("Failed to fetch view count:", error);
+			document.getElementById('stats-views').textContent = "0";
 		}
-	}, 100);
+	}
+	
+	// Fetch immediately
+	fetchViews();
 </script>
 )}
