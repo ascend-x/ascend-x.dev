@@ -21,6 +21,14 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ThemeProvider />
 
+		{/* Google Analytics */}
+		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-VVK02C78YX"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-VVK02C78YX');
+		</script>
 		{/* GoatCounter Analytics - Replace YOUR_ACCOUNT with your actual GoatCounter code */}
 		<script is:inline data-goatcounter="https://YOUR_ACCOUNT.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 	</head>
