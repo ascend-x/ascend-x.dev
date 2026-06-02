@@ -1,0 +1,207 @@
+---
+import { Icon } from "astro-icon/components";
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "Admin dashboard — Manage your portfolio content",
+	title: "Admin",
+};
+
+const GITHUB_REPO = "https://github.com/ascend-x/ascend-x.dev";
+
+const sections = [
+	{
+		title: "Blog Posts",
+		icon: "mdi:file-document-edit",
+		description: "Write cybersecurity writeups, CTF walkthroughs, and technical articles.",
+		path: "src/content/post/",
+		editUrl: `${GITHUB_REPO}/tree/main/src/content/post`,
+		format: `---
+title: "Your Post Title"
+description: "Brief description"
+publishDate: "2026-01-01"
+tags: ["cybersecurity", "ctf"]
+draft: false
+pinned: false
+---
+
+Your markdown content here...`,
+	},
+	{
+		title: "Featured Series (Playlists)",
+		icon: "mdi:playlist-play",
+		description: "Create a new series to group multiple blog posts together.",
+		path: "src/content/series/",
+		editUrl: `${GITHUB_REPO}/tree/main/src/content/series`,
+		format: `---
+title: "Series Name"
+description: "Brief overview..."
+---
+
+Your series description here.
+
+(To add a post to this series, add \`series: "filename"\` to the post's frontmatter!)`,
+	},
+	{
+		title: "Projects",
+		icon: "mdi:code-braces",
+		description: "Add or edit project case studies.",
+		path: "src/content/project/",
+		editUrl: `${GITHUB_REPO}/tree/main/src/content/project`,
+		format: `---
+title: "Project Name"
+description: "What it does..."
+date: 2026-06-02
+technologies: ["Tag1", "Tag2"]
+githubUrl: "https://github.com/..."
+---
+
+Full project writeup goes here...`,
+	},
+	{
+		title: "Achievements",
+		icon: "mdi:trophy",
+		description: "Add hackathon wins, CTF placements, and certifications.",
+		path: "src/pages/achievements/index.astro",
+		editUrl: `${GITHUB_REPO}/blob/main/src/pages/achievements/index.astro`,
+		format: `// Add to the relevant array:
+{
+  medal: "🥇",
+  title: "Event Name",
+  org: "Organisation",
+  date: "Month Year",
+  detail: "Optional detail",
+}`,
+	},
+	{
+		title: "Experience & About",
+		icon: "mdi:briefcase",
+		description: "Update work experience, education, and skills on the about page.",
+		path: "src/pages/about.astro",
+		editUrl: `${GITHUB_REPO}/blob/main/src/pages/about.astro`,
+		format: null,
+	},
+	{
+		title: "Site Configuration",
+		icon: "mdi:cog",
+		description: "Update site title, description, author, URL, and navigation links.",
+		path: "src/site.config.ts",
+		editUrl: `${GITHUB_REPO}/blob/main/src/site.config.ts`,
+		format: null,
+	},
+];
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-4">Admin Dashboard</h1>
+	<p class="text-muted mb-10 text-sm">
+		Manage your portfolio content. Edit files directly on GitHub — changes auto-deploy on push.
+	</p>
+
+	{/* Analytics Section */}
+	<section class="mb-12">
+		<h2 class="title mb-6 text-xl">Analytics</h2>
+		<div class="rounded-lg border border-accent/30 bg-accent/5 p-5 shadow-sm">
+			<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div>
+					<div class="flex items-center gap-2">
+						<Icon aria-hidden="true" class="h-6 w-6 text-accent" focusable="false" name="mdi:google-analytics" />
+						<h3 class="text-accent font-semibold text-lg">Google Analytics 4</h3>
+					</div>
+					<p class="text-muted text-sm mt-1">Track live visitors, page views, and blog readership metrics.</p>
+					<p class="text-muted text-xs mt-2 font-mono">Currently tracking with ID: G-VVK02C78YX</p>
+				</div>
+				<a href="https://analytics.google.com/" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-global-bg transition-colors hover:bg-accent/90">
+					View Dashboard
+					<span aria-hidden="true">→</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<h2 class="title mb-6 text-xl">Content Management</h2>
+	<div class="space-y-6">
+		{
+			sections.map((section) => (
+				<div class="admin-card">
+					<div class="flex items-start gap-3">
+						<Icon
+							aria-hidden="true"
+							class="h-6 w-6 flex-shrink-0 text-accent mt-0.5"
+							focusable="false"
+							name={section.icon}
+						/>
+						<div class="flex-1">
+							<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+								<p class="text-accent-2 font-semibold">{section.title}</p>
+								<a
+									class="cactus-link text-accent text-xs font-medium"
+									href={section.editUrl}
+									target="_blank"
+									rel="noreferrer"
+								>
+									Edit on GitHub →
+								</a>
+							</div>
+							<p class="text-muted mt-1 text-sm">{section.description}</p>
+							<p class="text-muted mt-1 font-mono text-xs opacity-60">{section.path}</p>
+							{section.format && (
+								<details class="mt-3">
+									<summary class="text-accent cursor-pointer text-xs font-medium">
+										View content format
+									</summary>
+									<pre class="bg-global-text/5 mt-2 overflow-x-auto rounded p-3 text-xs leading-relaxed">
+										<code>{section.format}</code>
+									</pre>
+								</details>
+							)}
+						</div>
+					</div>
+				</div>
+			))
+		}
+	</div>
+
+	{/* Quick Actions */}
+	<section class="mt-12">
+		<h2 class="title mb-6 text-xl">Quick Actions</h2>
+		<div class="flex flex-wrap gap-3">
+			<a
+				class="quick-nav-link"
+				href={`${GITHUB_REPO}/new/main/src/content/post`}
+				target="_blank"
+				rel="noreferrer"
+			>
+				<Icon aria-hidden="true" class="h-4 w-4" focusable="false" name="mdi:plus" />
+				New Blog Post
+			</a>
+			<a
+				class="quick-nav-link"
+				href={`${GITHUB_REPO}/new/main/src/content/project`}
+				target="_blank"
+				rel="noreferrer"
+			>
+				<Icon aria-hidden="true" class="h-4 w-4" focusable="false" name="mdi:plus" />
+				New Project
+			</a>
+			<a
+				class="quick-nav-link"
+				href={`${GITHUB_REPO}/new/main/src/content/series`}
+				target="_blank"
+				rel="noreferrer"
+			>
+				<Icon aria-hidden="true" class="h-4 w-4" focusable="false" name="mdi:plus" />
+				New Series
+			</a>
+			<a
+				class="quick-nav-link"
+				href={GITHUB_REPO}
+				target="_blank"
+				rel="noreferrer"
+			>
+				<Icon aria-hidden="true" class="h-4 w-4" focusable="false" name="mdi:github" />
+				Open Repository
+			</a>
+		</div>
+	</section>
+</PageLayout>

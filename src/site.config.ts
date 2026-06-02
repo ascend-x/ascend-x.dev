@@ -3,18 +3,18 @@ import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
 	// ! Please remember to replace the following site property with your own domain, used in astro.config.ts
-	url: "https://astro-cactus.chriswilliams.dev/",
+	url: "https://ascend-x.dev",
 	/*
 		- Used to construct the meta title property found in src/components/BaseHead.astro L:11
 		- The webmanifest name found in astro.config.ts L:42
 		- The link value found in src/components/layout/Header.astro L:35
 		- In the footer found in src/components/layout/Footer.astro L:12
 	*/
-	title: "Astro Cactus",
+	title: "Nandakishore V",
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
-	author: "Chris Williams",
+	author: "Nandakishore V",
 	// Used as the default description meta property and webmanifest description
-	description: "An opinionated starter theme for Astro",
+	description: "Penetration Tester & Cloud Security Engineer | CTF Champion | GCP Specialist",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-GB",
 	// Meta property, found in src/components/BaseHead.astro L:42
@@ -41,12 +41,20 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "About",
 	},
 	{
+		path: "/projects/",
+		title: "Projects",
+	},
+	{
+		path: "/achievements/",
+		title: "Achievements",
+	},
+	{
 		path: "/posts/",
 		title: "Blog",
 	},
 	{
-		path: "/notes/",
-		title: "Notes",
+		path: "/contact/",
+		title: "Contact",
 	},
 ];
 

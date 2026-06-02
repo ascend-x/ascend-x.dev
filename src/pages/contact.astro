@@ -1,0 +1,75 @@
+---
+import { Icon } from "astro-icon/components";
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "Get in touch with Nandakishore V — Email, LinkedIn, GitHub, and more",
+	title: "Contact",
+};
+
+const contactLinks = [
+	{
+		icon: "mdi:email",
+		label: "Email",
+		value: "nk.ascendx@gmail.com",
+		href: "mailto:nk.ascendx@gmail.com",
+	},
+	{
+		icon: "mdi:phone",
+		label: "Phone",
+		value: "+91 6374079511",
+		href: "tel:+916374079511",
+	},
+	{
+		icon: "mdi:linkedin",
+		label: "LinkedIn",
+		value: "linkedin.com/in/ascend-x",
+		href: "https://linkedin.com/in/ascend-x",
+	},
+	{
+		icon: "mdi:github",
+		label: "GitHub",
+		value: "github.com/ascend-x",
+		href: "https://github.com/ascend-x",
+	},
+	{
+		icon: "mdi:web",
+		label: "Website",
+		value: "ascend-x.dev",
+		href: "https://ascend-x.dev",
+	},
+];
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">Contact</h1>
+
+	{/* Terminal-style intro */}
+	<div class="terminal-block mb-10">
+		<p class="terminal-line">echo $CONTACT_INFO</p>
+		<p class="text-muted mt-1 pl-4">Open to collaborations, CTF team-ups, and security research opportunities.</p>
+		<p class="terminal-line mt-2">echo $AVAILABILITY</p>
+		<p class="text-muted mt-1 pl-4">Currently based in Tiruchirappalli, India. Available for remote work and consulting.</p>
+	</div>
+
+	{/* Contact links */}
+	<div class="space-y-3">
+		{
+			contactLinks.map((contact) => (
+				<a
+					class="experience-card flex items-center gap-4 no-underline transition-colors hover:bg-global-text/10"
+					href={contact.href}
+					target={contact.href.startsWith("http") ? "_blank" : undefined}
+					rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
+					style="display: flex;"
+				>
+					<Icon aria-hidden="true" class="h-6 w-6 flex-shrink-0 text-accent" focusable="false" name={contact.icon} />
+					<div>
+						<p class="text-accent-2 text-sm font-semibold">{contact.label}</p>
+						<p class="text-muted text-sm">{contact.value}</p>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</PageLayout>

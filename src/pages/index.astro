@@ -1,7 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import PostPreview from "@/components/blog/PostPreview.astro";
-import Note from "@/components/note/Note.astro";
 import SocialList from "@/components/SocialList.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
@@ -21,28 +20,92 @@ const pinnedPosts = allPostsByDate
 	.take(MAX_PINNED_POSTS)
 	.toArray();
 
-// Notes, set to a max of 5
-const MAX_NOTES = 5;
-const allNotes = await getCollection("note");
-const latestNotes = allNotes
-	.sort(collectionDateSort)
-	.slice(0, MAX_NOTES) as CollectionEntry<"note">[];
+// Playlists / Series
+const allSeries = await getCollection("series");
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<section>
-		<h1 class="title mb-12">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
-		</p>
+	{/* ── Hero Section ── */}
+	<section class="mb-16">
+		<p class="text-muted mb-2 text-sm font-medium">Hi, I'm</p>
+		<h1 class="title mb-3 text-3xl sm:text-4xl">Nandakishore V</h1>
+		<div class="mb-6 flex items-center gap-1 text-lg font-medium sm:text-xl" id="typewriter-container">
+			<span class="text-accent" id="typewriter-text"></span>
+			<span class="typewriter-cursor h-5 sm:h-6">&nbsp;</span>
+		</div>
+
+
+
 		<SocialList />
 	</section>
+
+	{/* ── Stats Bar ── */}
+	<section class="mb-16">
+		<div class="flex flex-wrap justify-center gap-3">
+			<div class="stat-card">
+				<span class="stat-number">120+</span>
+				<span class="stat-label">CTFs Played</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number">30+</span>
+				<span class="stat-label">CTF Victories</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number">30+</span>
+				<span class="stat-label">Hackathons Attended</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number">15+</span>
+				<span class="stat-label">Hackathons Won</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number">30+</span>
+				<span class="stat-label">Projects Built</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number">30+</span>
+				<span class="stat-label">Workshops Delivered</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number">70+</span>
+				<span class="stat-label">GCP Badges</span>
+			</div>
+		</div>
+	</section>
+
+	{/* ── Playlists / Series ── */}
+	{allSeries.length > 0 && (
+		<section class="mb-16">
+			<h2 class="title mb-6 text-xl flex items-center gap-2">
+				<svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 9l-4 3V7l4 3z"/></svg>
+				Featured Series
+			</h2>
+			<div class="grid gap-4 sm:grid-cols-2">
+				{allSeries.map((series) => (
+					<a href={`/series/${series.id}/`} class="group relative flex flex-col justify-between rounded-lg border border-transparent bg-muted/10 p-4 shadow-sm ring-1 ring-border transition-all hover:border-accent hover:shadow-md">
+						<div>
+							<h3 class="text-accent font-semibold group-hover:underline">{series.data.title}</h3>
+							<p class="text-muted mt-2 text-sm line-clamp-2">{series.data.description}</p>
+						</div>
+						<div class="mt-4 flex items-center gap-1 text-xs font-medium text-accent">
+							View Series <span aria-hidden="true">→</span>
+						</div>
+					</a>
+				))}
+			</div>
+		</section>
+	)}
+
+
+
+	{/* ── Pinned Posts ── */}
 	{
 		pinnedPosts.length > 0 && (
 			<section class="mt-16">
-				<h2 class="title mb-6 text-xl">Pinned Posts</h2>
+				<h2 class="title mb-6 text-xl flex items-center gap-2">
+					<svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>
+					Pinned Posts
+				</h2>
 				<ul class="space-y-4" role="list">
 					{pinnedPosts.map((p) => (
 						<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
@@ -53,8 +116,13 @@ const latestNotes = allNotes
 			</section>
 		)
 	}
+
+	{/* ── Latest Posts ── */}
 	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+		<h2 class="title mb-6 text-xl flex items-center gap-2">
+			<svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+			<a href="/posts/" class="hover:text-accent transition-colors">Latest Posts</a>
+		</h2>
 		<ul class="space-y-4" role="list">
 			{
 				latestPosts.map((p) => (
@@ -65,20 +133,50 @@ const latestNotes = allNotes
 			}
 		</ul>
 	</section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<ul class="space-y-6" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
 </PageLayout>
+
+<script>
+	const roles = [
+		"Penetration Tester",
+		"Cloud Security Engineer",
+		"CTF Player",
+		"System Administrator",
+		"Open Source Builder",
+	];
+
+	const typewriterEl = document.getElementById("typewriter-text");
+	if (typewriterEl) {
+		let roleIndex = 0;
+		let charIndex = 0;
+		let isDeleting = false;
+		let typingSpeed = 100;
+
+		function tick() {
+			const currentRole = roles[roleIndex] ?? "";
+			if (!typewriterEl) return;
+
+			if (isDeleting) {
+				typewriterEl.textContent = currentRole.substring(0, charIndex - 1);
+				charIndex--;
+				typingSpeed = 50;
+			} else {
+				typewriterEl.textContent = currentRole.substring(0, charIndex + 1);
+				charIndex++;
+				typingSpeed = 100;
+			}
+
+			if (!isDeleting && charIndex === currentRole.length) {
+				typingSpeed = 2000; // Pause at end
+				isDeleting = true;
+			} else if (isDeleting && charIndex === 0) {
+				isDeleting = false;
+				roleIndex = (roleIndex + 1) % roles.length;
+				typingSpeed = 500; // Pause before next word
+			}
+
+			setTimeout(tick, typingSpeed);
+		}
+
+		tick();
+	}
+</script>

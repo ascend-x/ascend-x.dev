@@ -1,0 +1,182 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "Achievements — Hackathon wins, CTF placements, and certifications by Nandakishore V",
+	title: "Achievements",
+};
+
+const hackathonWins = [
+	{
+		medal: "🥇",
+		title: "Cyber Shield Hackathon",
+		org: "MeitY / ISEA / CISA",
+		date: "Mar 2026",
+		detail: "₹50,000 prize — QAVACH: Post-Quantum Cryptography identity platform",
+	},
+	{
+		medal: "🥈",
+		title: "Deltabuild Hackathon",
+		org: "",
+		date: "Mar 2026",
+		detail: "Secure Healthcare Ecosystem",
+	},
+	{
+		medal: "🥈",
+		title: "IIT Petrichor — Climate Hackathon",
+		org: "IIT",
+		date: "Jan 2026",
+		detail: "",
+	},
+	{
+		medal: "🥈",
+		title: "Kyberastra Hackathon",
+		org: "Amrita",
+		date: "Sep 2025",
+		detail: "",
+	},
+];
+
+const ctfWins = [
+	{
+		medal: "🥇",
+		title: "Mirage CTF",
+		org: "Amrita — National Level",
+		date: "Mar 2026",
+		detail: "",
+	},
+	{
+		medal: "🥇",
+		title: "Cyber Hackathon HTB Chennai",
+		org: "",
+		date: "Oct 2025",
+		detail: "600 teams — Built ICS security dashboard",
+	},
+	{
+		medal: "🥈",
+		title: "RootAccess CTF",
+		org: "IIEST Shibpur",
+		date: "Jan 2026",
+		detail: "",
+	},
+	{
+		medal: "🥉",
+		title: "Yuva CTF",
+		org: "CyberAnzen, SRMIST",
+		date: "Sep 2025",
+		detail: "",
+	},
+];
+
+const globalRankings = [
+	{
+		medal: "🏅",
+		title: "National Rank 49 — Pentathon CTF",
+		org: "AICTE",
+		date: "May 2025",
+		detail: "",
+	},
+	{
+		medal: "🌍",
+		title: "Global Rank 74 — Hackfinity CTF",
+		org: "TryHackMe",
+		date: "Apr 2025",
+		detail: "",
+	},
+];
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">Achievements</h1>
+
+	{/* ── Hackathon Wins ── */}
+	<section class="mb-12">
+		<h2 class="title mb-6 text-xl">Hackathon Wins</h2>
+		<div class="space-y-3">
+			{
+				hackathonWins.map((a) => (
+					<div class="achievement-entry">
+						<span class="achievement-medal">{a.medal}</span>
+						<div class="achievement-info">
+							<div class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
+								<p class="text-accent-2 text-sm font-semibold">{a.title}</p>
+								<p class="text-muted text-xs">{a.date}</p>
+							</div>
+							{a.org && <p class="text-muted text-xs">{a.org}</p>}
+							{a.detail && <p class="text-accent mt-1 text-sm font-medium">{a.detail}</p>}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	{/* ── CTF Wins ── */}
+	<section class="mb-12">
+		<h2 class="title mb-6 text-xl">CTF Victories</h2>
+		<div class="space-y-3">
+			{
+				ctfWins.map((a) => (
+					<div class="achievement-entry">
+						<span class="achievement-medal">{a.medal}</span>
+						<div class="achievement-info">
+							<div class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
+								<p class="text-accent-2 text-sm font-semibold">{a.title}</p>
+								<p class="text-muted text-xs">{a.date}</p>
+							</div>
+							{a.org && <p class="text-muted text-xs">{a.org}</p>}
+							{a.detail && <p class="text-accent mt-1 text-sm font-medium">{a.detail}</p>}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	{/* ── Global Rankings ── */}
+	<section class="mb-12">
+		<h2 class="title mb-6 text-xl">Global Rankings</h2>
+		<div class="space-y-3">
+			{
+				globalRankings.map((a) => (
+					<div class="achievement-entry">
+						<span class="achievement-medal">{a.medal}</span>
+						<div class="achievement-info">
+							<div class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
+								<p class="text-accent-2 text-sm font-semibold">{a.title}</p>
+								<p class="text-muted text-xs">{a.date}</p>
+							</div>
+							{a.org && <p class="text-muted text-xs">{a.org}</p>}
+							{a.detail && <p class="text-accent mt-1 text-sm font-medium">{a.detail}</p>}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	{/* ── Certifications ── */}
+	<section class="mb-12">
+		<h2 class="title text-lg mb-4">Hackathon</h2>
+		<div class="achievement-entry">
+			<span class="achievement-medal">🏅</span>
+			<div class="achievement-info">
+				<p class="text-accent-2 text-sm font-semibold">Google Cloud Skills Boost</p>
+				<div class="mt-2 flex flex-wrap gap-3">
+					<span class="stat-card py-2 px-3">
+						<span class="stat-number text-base">70+</span>
+						<span class="stat-label">Badges</span>
+					</span>
+					<span class="stat-card py-2 px-3">
+						<span class="stat-number text-base">246+</span>
+						<span class="stat-label">Labs</span>
+					</span>
+					<span class="stat-card py-2 px-3">
+						<span class="stat-number text-base">96</span>
+						<span class="stat-label">Quizzes</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</section>
+</PageLayout>

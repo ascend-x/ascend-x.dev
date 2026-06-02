@@ -1,24 +1,15 @@
 ---
-import { menuLinks, siteConfig } from "@/site.config";
-
-const year = new Date().getFullYear();
+import { menuLinks } from "@/site.config";
 ---
 
-<footer
-	class="text-muted mt-auto flex w-full flex-col items-center justify-center gap-y-2 pt-20 pb-4 text-center align-top font-semibold sm:flex-row sm:justify-between sm:text-xs"
->
-	<div class="me-0 sm:me-4">
-		&copy; {siteConfig.author}
-		{year}.<span class="inline-block">&nbsp;🚀&nbsp;{siteConfig.title}&nbsp;🌵&nbsp;</span>
+<footer class="text-muted mt-auto flex w-full flex-col items-center justify-center pt-20 pb-4 text-center align-top font-semibold sm:text-xs">
+	<div>
+		&copy; 2025 Nandakishore V &middot; Built with
+		<span class="sr-only">love</span>
+		<svg class="inline-block h-4 w-4 text-accent align-middle -mt-1" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			<path d="M9 2H5v2H3v2H1v6h2v2h2v2h2v2h2v2h2v2h2v-2h2v-2h2v-2h2v-2h2v-2h2V6h-2V4h-2V2h-4v2h-2v2H9V4H9V2z"/>
+		</svg>
+		&middot;
+		<a class="hover:text-link" href="https://ascend-x.dev" target="_blank" rel="noreferrer">ascend-x.dev</a>
 	</div>
-	<nav aria-labelledby="footer_links" class="sm:divide-muted flex gap-x-2 sm:gap-x-0 sm:divide-x">
-		<p id="footer_links" class="sr-only">More on this site</p>
-		{
-			menuLinks.map((link) => (
-				<a class="hover:text-global-text px-4 py-2 hover:underline sm:py-0" href={link.path}>
-					{link.title}
-				</a>
-			))
-		}
-	</nav>
 </footer>

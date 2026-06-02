@@ -76,9 +76,9 @@
 			--color-global-text: oklch(83.54% 0 264);
 			--color-muted: oklch(70.7% 0.022 261.325);
 			--color-link: oklch(70.44% 0.1133 349);
-			--color-accent: oklch(70.91% 0.1415 163.7);
+			--color-accent: oklch(88.2% 0.055 68);
 			--color-accent-2: oklch(94.66% 0 0);
-			--color-quote: oklch(94.8% 0.106 136.49);
+			--color-quote: oklch(88.2% 0.055 68);
 		}
 
 		--color-mode-transition-duration: 300ms;
@@ -126,6 +126,123 @@
 	.title {
 		@apply text-accent-2 text-2xl font-semibold;
 	}
+
+	/* Terminal-style block with left accent border */
+	.terminal-block {
+		@apply bg-global-text/5 border-l-2 border-accent px-4 py-3 font-mono text-sm leading-relaxed;
+	}
+
+	.terminal-block .terminal-line::before {
+		content: "$ ";
+		@apply text-accent font-bold;
+	}
+
+	/* Stat counter cards */
+	.stat-card {
+		@apply bg-global-text/5 flex flex-col items-center rounded-md px-4 py-3 text-center;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+	.stat-card:hover {
+		transform: translateY(-2px);
+	}
+	.stat-card .stat-number {
+		@apply text-accent text-xl font-bold;
+	}
+	.stat-card .stat-label {
+		@apply text-muted mt-1 text-xs;
+	}
+
+	/* Project cards */
+	.project-card {
+		@apply bg-global-text/5 rounded-md px-5 py-4;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+	.project-card:hover {
+		transform: translateY(-2px);
+	}
+	.project-card .project-title {
+		@apply text-accent-2 text-base font-semibold;
+	}
+	.project-card .project-desc {
+		@apply text-muted mt-2 text-sm leading-relaxed;
+	}
+	.project-card .project-tags {
+		@apply mt-3 flex flex-wrap gap-2;
+	}
+
+	/* Achievement entry */
+	.achievement-entry {
+		@apply bg-global-text/5 flex items-start gap-3 rounded-md px-4 py-3;
+		transition: transform 0.2s ease;
+	}
+	.achievement-entry:hover {
+		transform: translateY(-1px);
+	}
+	.achievement-entry .achievement-medal {
+		@apply text-xl leading-none flex-shrink-0;
+	}
+	.achievement-entry .achievement-info {
+		@apply flex-1;
+	}
+
+	/* Vertical timeline */
+	.timeline {
+		@apply relative border-l-2 border-accent/30 pl-6;
+	}
+	.timeline-item {
+		@apply relative mb-6 last:mb-0;
+	}
+	.timeline-item::before {
+		content: "";
+		@apply bg-accent absolute -left-[1.8125rem] top-1 h-3 w-3 rounded-full;
+	}
+
+	/* Skill badge */
+	.skill-badge {
+		@apply bg-global-text/10 inline-block rounded-sm px-2 py-0.5 text-xs font-medium;
+	}
+
+	/* Typewriter cursor blink */
+	.typewriter-cursor {
+		@apply inline-block w-0.5 bg-accent ml-0.5;
+		animation: blink 1s step-end infinite;
+	}
+
+	/* Quick nav link */
+	.quick-nav-link {
+		@apply bg-global-text/5 hover:bg-global-text/10 inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors;
+	}
+
+	/* Experience card */
+	.experience-card {
+		@apply bg-global-text/5 rounded-md px-5 py-4;
+	}
+	.experience-card .exp-role {
+		@apply text-accent-2 text-sm font-semibold;
+	}
+	.experience-card .exp-org {
+		@apply text-accent text-xs font-medium;
+	}
+	.experience-card .exp-date {
+		@apply text-muted text-xs;
+	}
+	.experience-card .exp-details {
+		@apply text-muted mt-2 space-y-1 text-sm;
+	}
+
+	/* Admin card */
+	.admin-card {
+		@apply bg-global-text/5 rounded-md px-5 py-4;
+		transition: transform 0.2s ease;
+	}
+	.admin-card:hover {
+		transform: translateY(-2px);
+	}
+}
+
+@keyframes blink {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0; }
 }
 
 @utility prose {
