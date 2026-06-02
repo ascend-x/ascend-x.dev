@@ -38,6 +38,12 @@ const contactLinks = [
 		value: "ascend-x.dev",
 		href: "https://ascend-x.dev",
 	},
+	{
+		icon: "mdi:instagram",
+		label: "Instagram",
+		value: "@ascend-x",
+		href: "https://instagram.com/ascend_x",
+	},
 ];
 ---
 
@@ -54,13 +60,18 @@ const contactLinks = [
 		{
 			contactLinks.map((contact) => (
 				<a
-					class="experience-card flex items-center gap-4 no-underline transition-colors hover:bg-global-text/10"
+					class="experience-card hover:bg-global-text/10 flex items-center gap-4 no-underline transition-colors"
 					href={contact.href}
 					target={contact.href.startsWith("http") ? "_blank" : undefined}
 					rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
 					style="display: flex;"
 				>
-					<Icon aria-hidden="true" class="h-6 w-6 shrink-0 text-accent" focusable="false" name={contact.icon} />
+					<Icon
+						aria-hidden="true"
+						class="text-accent h-6 w-6 shrink-0"
+						focusable="false"
+						name={contact.icon}
+					/>
 					<div>
 						<p class="text-accent-2 text-sm font-semibold">{contact.label}</p>
 						<p class="text-muted text-sm">{contact.value}</p>
