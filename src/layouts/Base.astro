@@ -62,22 +62,27 @@ const {
 		{/* Matrix Rain Easter Egg */}
 		<canvas id="matrix-canvas" class="fixed inset-0 z-[9999] pointer-events-none opacity-0 transition-opacity duration-1000"></canvas>
 		<script is:inline>
-			const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-			let konamiIndex = 0;
-			
-			document.addEventListener('keydown', (e) => {
-				if (e.key === konamiCode[konamiIndex]) {
-					konamiIndex++;
-					if (konamiIndex === konamiCode.length) {
-						activateMatrix();
-						konamiIndex = 0;
+			if (!window.konamiInitialized) {
+				window.konamiInitialized = true;
+				const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+				let konamiIndex = 0;
+				
+				document.addEventListener('keydown', (e) => {
+					if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase() || e.key === konamiCode[konamiIndex]) {
+						konamiIndex++;
+						if (konamiIndex === konamiCode.length) {
+							activateMatrix();
+							konamiIndex = 0;
+						}
+					} else {
+						// If the key is the start of the sequence, start over at index 1, else reset to 0
+						konamiIndex = (e.key === 'ArrowUp') ? 1 : 0;
 					}
-				} else {
-					konamiIndex = 0;
-				}
-			});
+				});
 
-			function activateMatrix() {
+				let matrixInterval;
+
+				function activateMatrix() {
 				const canvas = document.getElementById('matrix-canvas');
 				if (canvas.style.opacity === '1') {
 					canvas.style.opacity = '0';
